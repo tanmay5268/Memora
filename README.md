@@ -1,159 +1,40 @@
-# Turborepo starter
+<p align="center">
+  <img src="apps/cacheWeb/app/icon.svg" alt="CashLM" width="120" height="120" />
+</p>
 
-This Turborepo starter is maintained by the Turborepo core team.
+<h1 align="center">Memora</h1>
 
-## Using this example
+<p align="center"><em>Never pay twice for the same prompt.</em></p>
 
-Run the following command:
+A hosted semantic caching layer for LLM API calls. Developers install an npm SDK that acts as a drop-in replacement for their LLM provider's client. Behind the scenes, CashLM checks whether a similar request has already been answered — and if so, returns the cached response instead of calling the LLM provider again, cutting API costs on repetitive workloads.
 
-```sh
-npx create-turbo@latest
-```
+## The core idea
 
-## What's inside?
+Most caching is exact-match only, which misses the real savings opportunity: near-duplicate prompts that are worded differently but mean the same thing. CashLM embeds each incoming request and compares it against previously cached requests using vector similarity search — catching duplicates that a simple hash-based cache would miss.
 
-This Turborepo includes the following packages/apps:
+## How it works
 
-### Apps and Packages
+1. Dev's app calls the CashLM SDK instead of the LLM provider's client directly
+2. CashLM authenticates the request (tenant-scoped, via platform API key) and embeds the prompt
+3. It searches for a sufficiently similar prompt already in that tenant's cache
+4. **Cache hit** → return the stored response instantly, no LLM call made
+5. **Cache miss** → call the LLM provider live, then store the new response for next time
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `@next/eslint-plugin-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+## First integration
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+**Gemini API** — chosen as the first provider, using Gemini's own `text-embedding-004` model for the similarity comparisons, so no second embedding vendor is needed.
 
-### Utilities
+## Platform pieces
 
-This Turborepo has some additional tools already setup for you:
+- **Website (cashlm.dev)**: Google/GitHub login, a page to generate platform API keys, and SDK docs
+- **API key system**: keys are generated as random strings, hashed (SHA-256) before storage, and shown to the user only once at creation — the raw key is never stored or re-displayed
+- **Auth caching**: a shared Redis layer (via a provider like Upstash) sits in front of the database for API key lookups, using write-through caching on key creation plus a cache-aside fallback, so most requests avoid a database round-trip entirely
+- **Semantic cache storage**: a vector-capable store (e.g. pgvector) holds embeddings and responses per tenant, separate from the Redis auth-lookup layer
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+## Why it's differentiated
 
-### Build
+Exact-match LLM caching already exists (Helicone, Portkey, GPTCache, LiteLLM). CashLM's wedge is doing *semantic* near-duplicate caching safely — with a tunable similarity threshold, per-request opt-outs for freshness-sensitive calls, and cache-hit confidence scores so devs aren't trusting a black box.
 
-To build all apps and packages, run the following command:
+## Status
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo build
-bun exec turbo build
-bun exec turbo build
-```
-
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo build --filter=docs
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo build --filter=docs
-bun exec turbo build --filter=docs
-bun exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo dev
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo dev
-bun exec turbo dev
-bun exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo dev --filter=web
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo dev --filter=web
-bun exec turbo dev --filter=web
-bun exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-bun exec turbo login
-bun exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-bun exec turbo link
-bun exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+Early-stage — architecture and key decisions (provider, auth flow, caching layers) are settled; SDK, server, and dashboard are not yet built.
