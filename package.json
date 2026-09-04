@@ -1,5 +1,5 @@
 {
-  "name": "cacheLM",
+  "name": "cachelm",
   "private": true,
   "scripts": {
     "build": "turbo run build",
