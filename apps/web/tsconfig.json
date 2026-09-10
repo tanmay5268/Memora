@@ -1,6 +1,9 @@
 {
   "extends": "@repo/typescript-config/nextjs.json",
   "compilerOptions": {
+    "paths": {
+      "@/*":["./*"]
+    },
     "plugins": [
       {
         "name": "next"
@@ -14,6 +17,6 @@
     "next-env.d.ts",
     "next.config.js",
     ".next/types/**/*.ts"
-  ],
+, "../../packages/ui/src/components/ui/Hero.tsx"  ],
   "exclude": ["node_modules"]
 }
