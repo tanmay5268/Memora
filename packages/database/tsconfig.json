@@ -1,9 +1,0 @@
-{
-  "extends": "@repo/typescript-config/database.json",
-  "compilerOptions": {
-    "ignoreDeprecations": "5.0",
-    "outDir": "dist",
-    "strictNullChecks": true,
-  },
-  "exclude": ["node_modules", "dist"]
-}
