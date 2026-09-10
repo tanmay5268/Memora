@@ -25,6 +25,7 @@ export const nextJsConfig = [
         ...globals.serviceworker,
       },
     },
+    files: ["**/*.{js,mjs,cjs,ts,tsx}"],
   },
   {
     plugins: {

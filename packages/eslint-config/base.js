@@ -18,7 +18,10 @@ export const config = [
       parserOptions: {
         requireConfigFile: false,
         babelOptions: {
-          presets: ["@babel/preset-typescript"],
+          presets: [
+            "@babel/preset-typescript",
+            ["@babel/preset-react", { runtime: "automatic" }],
+          ],
         },
       },
     },
@@ -27,6 +30,20 @@ export const config = [
     },
     rules: {
       "turbo/no-undeclared-env-vars": "warn",
+    },
+  },
+  {
+    /*
+     * @babel/eslint-parser strips TypeScript type annotations before linting,
+     * so core rules that rely on type information (no-undef) or on count JSX /
+     * type-only usages (no-unused-vars) produce false positives in .ts/.tsx
+     * files. TypeScript itself (tsc --noEmit) already checks both, so we
+     * disable them here and rely on the type checker instead.
+     */
+    files: ["**/*.{ts,tsx}"],
+    rules: {
+      "no-undef": "off",
+      "no-unused-vars": "off",
     },
   },
   {

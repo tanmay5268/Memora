@@ -425,6 +425,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
           aria-label="Main navigation header"
         >
           <div className="sm-logo flex items-center select-none pointer-events-auto" aria-label="Logo">
+            {/* eslint-disable-next-line @next/next/no-img-element -- logoUrl is a dynamic asset URL, not optimized by next/image */}
             <img
               src={logoUrl || '/src/assets/logos/reactbits-gh-white.svg'}
               alt="Logo"

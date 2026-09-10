@@ -336,7 +336,9 @@ const GradientWaves: React.FC<GradientWavesProps> = ({
       ctxMap.delete(container);
       try {
         container.removeChild(canvas);
-      } catch {}
+      } catch {
+        // canvas may already have been removed
+      }
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
   }, []);
