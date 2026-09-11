@@ -1,0 +1,31 @@
+{
+  "name": "@workspace/auth",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "exports": {
+    "./server": {
+      "types": "./dist/server.d.ts",
+      "default": "./dist/server.js"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "default": "./dist/client.js"
+    }
+  },
+  "dependencies": {
+    "@types/node": "^22.20.2",
+    "@workspace/db": "workspace:*",
+    "@workspace/typescript-config": "workspace:*",
+    "better-auth": "^1.7.4",
+    "server-only": "^0.0.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "latest"
+  }
+}

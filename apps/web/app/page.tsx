@@ -1,33 +1,15 @@
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@workspace/ui/components/alert-dialog"
-import { Button } from "@workspace/ui/components/button"
+"use client"
 
-export default function AlertDialogDemo() {
+import { Button } from "@workspace/ui/components/button"
+import Link from "next/link"
+export default function ToastTypes() {
   return (
-    <AlertDialog>
-      <AlertDialogTrigger render={<Button variant="outline">Show Dialog</Button>} />
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account from our servers.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+    <div className="flex flex-wrap gap-2">
+      <Link href="/login">
+        <Button size={"sm"}>
+          Login
+        </Button>
+      </Link>
+    </div>
   )
 }
