@@ -388,11 +388,11 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
   return (
     <div
-      className={`sm-scope z-40 pointer-events-none ${isFixed ? 'fixed top-0 left-0 w-screen h-screen overflow-hidden' : 'w-full h-full'}`}
+      className={`sm-scope  z-40 pointer-events-none ${isFixed ? 'fixed top-0 left-0 w-screen h-screen overflow-hidden' : 'w-full h-full'}`}
     >
       <div
         className={
-          (className ? className + ' ' : '') + 'staggered-menu-wrapper pointer-events-none relative w-full h-full z-40'
+          (className ? className + ' ' : '') + 'staggered-menu-wrapper pointer-events-none  relative w-full h-full z-40'
         }
         style={accentColor ? ({ ['--sm-accent' as any]: accentColor } as React.CSSProperties) : undefined}
         data-position={position}
@@ -421,10 +421,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         </div>
 
         <header
-          className="staggered-menu-header absolute top-0 left-0 flex items-center justify-between p-[2em] bg-transparent pointer-events-none z-20"
+          className=" absolute top-0 left-0 w-full flex items-center justify-between px-5 py-8 sm:px-30 sm:py-10 bg-transparent pointer-events-none z-20"
           aria-label="Main navigation header"
         >
-          <div className="sm-logo flex items-center select-none pointer-events-auto" aria-label="Logo">
+          <div className="flex items-baseline-last gap-2 select-none pointer-events-auto" aria-label="Logo">
             {/* eslint-disable-next-line @next/next/no-img-element -- logoUrl is a dynamic asset URL, not optimized by next/image */}
             <img
               src={logoUrl || '/src/assets/logos/reactbits-gh-white.svg'}
@@ -434,13 +434,14 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               width={110}
               height={24}
             />
+
+            <div className="font-mono text-white font-bold pb-1tracking-widest text-2xl" style={{ fontFamily: 'var(--font-mono)' }}>Memora</div>
           </div>
 
           <button
             ref={toggleBtnRef}
-            className={`sm-toggle relative inline-flex items-center gap-[0.3rem] bg-transparent border-0 cursor-pointer font-medium leading-none overflow-visible pointer-events-auto ${
-              open ? 'text-black' : 'text-[#e9e9ef]'
-            }`}
+            className={`sm-toggle relative inline-flex items-center gap-[0.3rem] bg-transparent border-0 cursor-pointer font-medium leading-none overflow-visible pointer-events-auto ${open ? 'text-black' : 'text-[#e9e9ef]'
+              }`}
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
             aria-controls="staggered-menu-panel"
@@ -455,7 +456,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               <span ref={textInnerRef} className="sm-toggle-textInner flex flex-col leading-none">
                 {textLines.map((l, i) => (
                   <span className="sm-toggle-line block h-[1em]  leading-none" key={i}>
-                    {l == "Close" ? <div className='text-[#ff5a00]'>{l}</div> :<div>{l}</div> }
+                    {l == "Close" ? <div className='text-[#ff5a00]'>{l}</div> : <div>{l}</div>}
                   </span>
                 ))}
               </span>
@@ -545,7 +546,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
 
       <style>{`
 .sm-scope .staggered-menu-wrapper { position: relative; width: 100%; height: 100%; z-index: 40; pointer-events: none; }
-.sm-scope .staggered-menu-header { position: absolute; top: 0; left: 0; width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 2em; background: transparent; pointer-events: none; z-index: 20; }
+.sm-scope .staggered-menu-header { position: absolute; top: 0; left: 0; width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 2em; background: blue; pointer-events: none; z-index: 20; }
 .sm-scope .staggered-menu-header > * { pointer-events: auto; }
 .sm-scope .sm-logo { display: flex; align-items: center; user-select: none; }
 .sm-scope .sm-logo-img { display: block; height: 32px; width: auto; object-fit: contain; }
