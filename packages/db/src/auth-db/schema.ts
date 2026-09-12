@@ -52,3 +52,18 @@ export const verification = pgTable("verification", {
 }, (table) => [
 	t.index("verification_identifier_idx").on(table.identifier),
 ]);
+// ------------------------------------------------------------------
+export const apiKey = pgTable("api_key", {
+	id: t.text("id").primaryKey(),
+	userId: t.text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),
+	name: t.text("name").notNull(),                              // user-given label, e.g. "Production key"
+	keyHash: t.varchar("key_hash", { length: 64 }).notNull().unique(), // sha256 hex digest, always 64 chars
+	keyPrefix: t.varchar("key_prefix", { length: 20 }).notNull(),      // e.g. "cashlm_9f2A3B" — shown in UI
+	revoked: t.boolean("revoked").notNull().default(false),
+	lastUsedAt: t.timestamp("last_used_at", { precision: 6, withTimezone: true }),
+	createdAt: t.timestamp("created_at", { precision: 6, withTimezone: true }).notNull(),
+	updatedAt: t.timestamp("updated_at", { precision: 6, withTimezone: true }).notNull(),
+}, (table) => [
+	t.index("api_key_userId_idx").on(table.userId),
+	t.index("api_key_keyHash_idx").on(table.keyHash),
+]);
