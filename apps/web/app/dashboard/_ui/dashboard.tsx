@@ -2,6 +2,7 @@
 import {Button} from "@workspace/ui/components/button";
 import {useRouter} from "next/navigation";
 import { createAuthClient } from "@workspace/auth/client";
+import { toast } from "@workspace/ui/components/toast";
 interface DashboardProps {
   user: {
     email?: string | null,
@@ -13,6 +14,11 @@ export default function DashboardPageContents({ user }: DashboardProps) {
   const authclient = createAuthClient()
   const handleSignOut = async () => {
     await authclient.signOut();
+    toast.add({
+      type: "success",
+      title: "Signed out",
+      description: "You have been signed out successfully.",
+    })
     router.push("/");
   };
   return (

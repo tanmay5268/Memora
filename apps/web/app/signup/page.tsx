@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import Memoralogo from "@/app/icon.svg"
-import { LoginForm } from "@/app/login/_ui/login-form"
+import { LoginForm } from "@/app/signup/_ui/signup-form"
 
 export default function LoginPage() {
   
