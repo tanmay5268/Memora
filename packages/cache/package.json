@@ -1,0 +1,22 @@
+{
+  "name": "@workspace/cache",
+  "type": "module",
+  "exports": {
+    "./index": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@upstash/redis": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@workspace/typescript-config": "workspace:*",
+    "typescript": "latest"
+  }
+}
