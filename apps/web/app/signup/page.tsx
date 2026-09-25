@@ -13,6 +13,7 @@ export default function LoginPage() {
             <div className="flex items-center justify-center rounded-md">
               <span className="size-6">
                 <Image
+                  loading="eager"
                   src={Memoralogo}
                   alt="Image"
                   draggable={false}
@@ -32,6 +33,7 @@ export default function LoginPage() {
       </div>
       <div className="relative hidden bg-muted lg:block">
         <Image
+          loading="eager"
           src={Memoralogo}
           alt="Image"
           draggable={false}
