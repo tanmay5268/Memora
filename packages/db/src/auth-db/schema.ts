@@ -11,6 +11,21 @@ export const user = pgTable("user", {
 	updatedAt: t.timestamp("updated_at", { precision: 6, withTimezone: true }).notNull(),
 });
 // ------------------------------------------------------------------
+export const apiKey = pgTable("api_key", {
+	id: t.text("id").primaryKey(),
+	userId: t.text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),
+	name: t.text("name").notNull(),
+	keyHash: t.varchar("key_hash", { length: 64 }).notNull().unique(),
+	keyPrefix: t.varchar("key_prefix", { length: 20 }).notNull(),
+	revoked: t.boolean("revoked").notNull().default(false),
+	lastUsedAt: t.timestamp("last_used_at", { precision: 6, withTimezone: true }),
+	createdAt: t.timestamp("created_at", { precision: 6, withTimezone: true }).notNull(),
+	updatedAt: t.timestamp("updated_at", { precision: 6, withTimezone: true }).notNull(),
+}, (table) => [
+	t.index("api_key_userId_idx").on(table.userId),
+	t.index("api_key_keyHash_idx").on(table.keyHash),
+]);
+// ------------------------------------------------------------------
 export const session = pgTable("session", {
 	id: t.text("id").primaryKey(),
 	userId: t.text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),

@@ -1,0 +1,29 @@
+{
+  "name": "@workspace/orpc",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@orpc/server": "beta",
+    "@orpc/client": "beta",
+    "zod": "latest",
+    "drizzle-orm": "latest",
+    "@workspace/db": "workspace:*",
+    "@workspace/auth": "workspace:*",
+    "@workspace/cache": "workspace:*",
+    "server-only": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@workspace/typescript-config": "workspace:*",
+    "typescript": "latest"
+  }
+}

@@ -2,6 +2,8 @@ import { drizzle } from "drizzle-orm/neon-http";
 import type { NeonHttpDatabase } from "drizzle-orm/neon-http";
 import * as schema from "./schema";
 
+export { user, session, account, verification, apiKey } from "./schema";
+
 let _authDb: NeonHttpDatabase<typeof schema> | null = null;
 
 export const getAuthDb = () => {
