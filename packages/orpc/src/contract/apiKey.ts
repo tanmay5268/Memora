@@ -8,7 +8,7 @@ export const apiKeyErrors = {
 } as const
 
 export const createApiKeyInput = z.object({
-	name: z.string().min(1).max(100),
+	name: z.string().trim().min(1).max(100),
 })
 
 export const createApiKeyOutput = z.object({
