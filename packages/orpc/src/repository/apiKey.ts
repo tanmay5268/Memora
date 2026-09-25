@@ -62,7 +62,7 @@ export async function revokeApiKeyRepo(userId: string, id: string): Promise<{ ke
 
 	if (result.length === 0) return null
 
-	const keyHash = result[0]?.keyHash
+const keyHash = result[0]!.keyHash
 
 	if (redis) {
 		try {
