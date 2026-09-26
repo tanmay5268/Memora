@@ -98,7 +98,7 @@ function KeyCard({ apiKey, onRevoke, revoking }: { apiKey: ApiKey; onRevoke: (id
 
 function EmptyState({ onAction }: { onAction: () => void }) {
   return (
-    <Card className="text-center py-12 border-dashed">
+    <Card className="text-center  mx-auto w-3/5 py-12 border-dashed">
       <div className="mx-auto w-16 h-16 rounded-full bg-muted flex items-center justify-center mb-4">
         <KeyIcon className="text-muted-foreground" size={32} />
       </div>
@@ -106,7 +106,7 @@ function EmptyState({ onAction }: { onAction: () => void }) {
       <p className="text-muted-foreground text-sm mb-6 max-w-xs mx-auto">
         Create your first API key to start making authenticated requests to the API.
       </p>
-      <Button onClick={onAction} size="lg" className="gap-2">
+      <Button onClick={onAction} size="lg" className="gap-2 w-1/3 mx-auto">
         <KeyIcon size={16} />
         Create your first API key
       </Button>

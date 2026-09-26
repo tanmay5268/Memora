@@ -7,7 +7,7 @@ function generateApiKey(): { rawKey: string; keyHash: string; keyPrefix: string 
 	const randomPart = randomBytes(14).toString('base64url')
 	const rawKey = `memora_${randomPart}`
 	const keyHash = createHash('sha256').update(rawKey).digest('hex')
-	const keyPrefix = rawKey.slice(0, 20)
+	const keyPrefix = rawKey.slice(0, 10)
 	return { rawKey, keyHash, keyPrefix }
 }
 
