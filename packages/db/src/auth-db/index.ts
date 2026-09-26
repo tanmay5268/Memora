@@ -4,19 +4,29 @@ import * as schema from "./schema";
 
 export { user, session, account, verification, apiKey } from "./schema";
 
-let _authDb: NeonHttpDatabase<typeof schema> | null = null;
+class AuthDatabase {
+  private static instance: AuthDatabase | null = null;
 
-export const getAuthDb = () => {
-    if (_authDb) {
-    return _authDb;
+  public readonly db: NeonHttpDatabase<typeof schema>;
+
+  private constructor() {
+    const connectionString = process.env.AUTH_DB_URL;
+
+    if (!connectionString) {
+      throw new Error("AUTH_DB_URL not set");
     }
-  const connectionString = process.env.AUTH_DB_URL;
-  if (!connectionString) {
-    throw new Error("AUTH_DB_URL not set");
+
+    this.db = drizzle(connectionString, { schema });
+    console.log("AuthDatabase connected");
   }
-  _authDb = drizzle(connectionString,{ schema });
-  return _authDb;
+
+  public static getInstance(): AuthDatabase {
+    if (!AuthDatabase.instance) {
+      AuthDatabase.instance = new AuthDatabase();
+    }
+
+    return AuthDatabase.instance;
+  }
 }
-export const authDb = new Proxy({} as NeonHttpDatabase<typeof schema>, {
-  get: (_, prop) => getAuthDb()[prop as keyof NeonHttpDatabase<typeof schema>],
-});
+
+export const authDb = AuthDatabase.getInstance().db;
