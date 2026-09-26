@@ -1,32 +1,25 @@
-import { drizzle } from "drizzle-orm/neon-http";
-import type { NeonHttpDatabase } from "drizzle-orm/neon-http";
-import * as schema from "./schema";
+import { drizzle } from "drizzle-orm/neon-http"
+import type { NeonHttpDatabase } from "drizzle-orm/neon-http"
+import * as schema from "./schema"
 
-export { user, session, account, verification, apiKey } from "./schema";
+export { apiKey, user, session, account, verification } from "./schema"
 
-class AuthDatabase {
-  private static instance: AuthDatabase | null = null;
+const createDb = () => {
+  const connectionString = process.env.AUTH_DB_URL
 
-  public readonly db: NeonHttpDatabase<typeof schema>;
-
-  private constructor() {
-    const connectionString = process.env.AUTH_DB_URL;
-
-    if (!connectionString) {
-      throw new Error("AUTH_DB_URL not set");
-    }
-
-    this.db = drizzle(connectionString, { schema });
-    console.log("AuthDatabase connected");
+  if (!connectionString) {
+    throw new Error("AUTH_DB_URL is not set")
   }
-
-  public static getInstance(): AuthDatabase {
-    if (!AuthDatabase.instance) {
-      AuthDatabase.instance = new AuthDatabase();
-    }
-
-    return AuthDatabase.instance;
-  }
+  console.log("⚡ [authDb] Creating NEW database client instance")
+  return drizzle(connectionString, { schema })
 }
 
-export const authDb = AuthDatabase.getInstance().db;
+const globalForDb = globalThis as unknown as {
+  authDb: NeonHttpDatabase<typeof schema> | undefined
+}
+
+export const authDb = globalForDb.authDb ?? createDb()
+
+if (process.env.NODE_ENV !== "production") {
+  globalForDb.authDb = authDb
+}

@@ -29,10 +29,12 @@ export async function createApiKeyRepo(userId: string, name: string) {
 
 	if (redis) {
 		try {
-			await redis.set(`apikey:${keyHash}`, JSON.stringify({ userId }), { ex: 300 })
+      await redis.set(`apikey:${keyHash}`, JSON.stringify({ userId }), { ex: 300 })
 		} catch (e) {
 			console.error('[apiKey] Redis set failed:', e)
 		}
+  } else {
+    console.log("Redis not available")
 	}
 
 	return { rawKey, id, keyPrefix, createdAt: now }
