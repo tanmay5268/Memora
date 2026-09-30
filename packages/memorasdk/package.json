@@ -1,6 +1,6 @@
 {
   "name": "@workspace/memorasdk",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,17 +8,15 @@
     "dev": "tsc --watch"
   },
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    }
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
   },
-  "dependencies": {
-    "@upstash/redis": "^1.39.0",
-    "redis": "^6.2.1"
+  "dependencies": {},
+  "peerDependencies": {
+    "@upstash/vector": "latest"
   },
   "devDependencies": {
-    "@types/node": "^22",
+    "@upstash/vector": "^1.2.3",
     "@workspace/typescript-config": "workspace:*",
     "typescript": "latest"
   }
