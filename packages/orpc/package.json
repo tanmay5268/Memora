@@ -23,7 +23,6 @@
     "@workspace/db": "workspace:*",
     "@workspace/auth": "workspace:*",
     "@workspace/cache": "workspace:*",
-    "server-only": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",

@@ -12,7 +12,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@orpc/client": "beta",
     "@orpc/server": "beta",
     "@phosphor-icons/react": "^2.1.10",
     "@workspace/auth": "workspace:*",
