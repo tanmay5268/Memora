@@ -4,9 +4,10 @@ export class MemoraSdk {
   constructor(private options: MemoraSDKOptions) {
     assertNonEmptyString(options.MemoraKey, "MemoraKey");
     assertNonEmptyString(options.openAIKey, "openAIKey");
+    
   }
 
   async chat() {
-    
+    console.log(this.options.MemoraKey)
   }
 }

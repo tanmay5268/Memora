@@ -22,7 +22,7 @@
     "drizzle-orm": "latest",
     "@workspace/db": "workspace:*",
     "@workspace/auth": "workspace:*",
-    "@workspace/cache": "workspace:*",
+    "@workspace/cache": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22",
