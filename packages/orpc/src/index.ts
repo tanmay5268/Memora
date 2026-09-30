@@ -3,3 +3,4 @@ export { createApiKeyHandler, listApiKeysHandler, revokeApiKeyHandler } from './
 export { createApiKeyRepo, listApiKeysRepo, revokeApiKeyRepo } from './repository/apiKey.js'
 export { baseProcedure, authMiddleware } from './middleware/auth.js'
 export * from './contract/apiKey.js'
+export {orpc,safe} from "./client/orpcClient.js"

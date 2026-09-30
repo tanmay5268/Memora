@@ -1,6 +1,9 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
+  "globalEnv": [
+    "AUTH_DB_URL"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],

@@ -8,6 +8,5 @@ import { MemoraSdk } from "@workspace/memorasdk"
 const ai = new MemoraSdk({
   MemoraKey: process.env.MemoraKey!,
   openAIKey: process.env.Openapikey!,
-  RedisInstance:vectorRedis
 })
-await ai.populate()
+await ai.chat()
