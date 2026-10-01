@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "web":"bun dev --filter web",
+    "example":"bun dev --filter example",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
