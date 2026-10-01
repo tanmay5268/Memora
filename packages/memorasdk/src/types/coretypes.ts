@@ -1,4 +1,11 @@
+import { Index } from "@upstash/vector";
 export interface MemoraSDKOptions {
-  MemoraKey: string;
   openAIKey: string;
+  VectorInstance: Index;
+  scoreThreshold: number;
+  topK?: number;
 }
+export type ChatRequest = {
+  prompt: string;
+  model: string;
+};

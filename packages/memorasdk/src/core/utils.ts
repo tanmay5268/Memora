@@ -10,3 +10,15 @@ export function assertNonEmptyString(
     );
   }
 }
+
+export function assertScoreThreshold(
+  value: unknown,
+  name: keyof MemoraSDKOptions,
+): asserts value is number {
+  if (typeof value !== "number" || !Number.isFinite(value) || value < 0 || value > 1) {
+    throw new Error(
+      `MemoraSdk: "${name}" must be a finite number between 0 and 1 ` +
+        `to match the cosine similarity range of the vector index.`,
+    );
+  }
+}
