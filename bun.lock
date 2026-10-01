@@ -14,11 +14,10 @@
         "typescript": "^5",
       },
     },
-    "apps/my-app": {
+    "apps/example": {
       "name": "my-app",
       "version": "0.1.0",
       "dependencies": {
-        "@upstash/redis": "^1.39.0",
         "@upstash/vector": "^1.2.3",
         "@workspace/memorasdk": "workspace:*",
         "next": "16.3.6",
@@ -38,7 +37,6 @@
       "name": "web",
       "version": "0.0.1",
       "dependencies": {
-        "@orpc/client": "beta",
         "@orpc/server": "beta",
         "@phosphor-icons/react": "^2.1.10",
         "@workspace/auth": "workspace:*",
@@ -123,12 +121,11 @@
       "name": "@workspace/memorasdk",
       "version": "0.0.1",
       "devDependencies": {
-        "@upstash/vector": "^1.2.3",
         "@workspace/typescript-config": "workspace:*",
         "typescript": "latest",
       },
       "peerDependencies": {
-        "@upstash/vector": "latest",
+        "@upstash/vector": "^1.2.3",
       },
     },
     "packages/orpc": {
@@ -140,7 +137,6 @@
         "@workspace/cache": "workspace:*",
         "@workspace/db": "workspace:*",
         "drizzle-orm": "latest",
-        "server-only": "latest",
         "zod": "latest",
       },
       "devDependencies": {
@@ -1329,7 +1325,7 @@
 
     "mute-stream": ["mute-stream@2.0.0", "", {}, "sha512-WWdIxpyjEn+FhQJQQv9aQAYlHoNVdzIzUySNV1gHUPDSdZJ3yZn7pAAbQcV7B56Mvu881q9FZV+0Vx2xC44VWA=="],
 
-    "my-app": ["my-app@workspace:apps/my-app"],
+    "my-app": ["my-app@workspace:apps/example"],
 
     "nanoid": ["nanoid@3.3.19", "", { "bin": { "nanoid": "bin/nanoid.cjs" } }, "sha512-Y2tUNy4ouw6tq5oDSKeQYGOyhkUBhNOcGV/02KC+6kd9eDGqdZd++mjMiIDilrBYvjEnCYvVtsuHCuP+okSfug=="],
 

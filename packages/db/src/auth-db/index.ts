@@ -10,7 +10,7 @@ const createDb = () => {
   if (!connectionString) {
     throw new Error("AUTH_DB_URL is not set")
   }
-  console.log("⚡ [authDb] Creating NEW database client instance")
+  // console.log("⚡ [authDb] Creating NEW database client instance",process.ppid)
   return drizzle(connectionString, { schema })
 }
 

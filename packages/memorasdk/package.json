@@ -11,6 +11,9 @@
     ".": "./src/index.ts",
     "./*": "./src/*.ts"
   },
+  "peerDependencies": {
+    "@upstash/vector": "^1.2.3"
+  },
   "devDependencies": {
     "@workspace/typescript-config": "workspace:*",
     "typescript": "latest"
