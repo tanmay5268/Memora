@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // The workspace SDK ships raw TypeScript from its `exports` map.
+  transpilePackages: ["@workspace/memorasdk"],
 };
 
 export default nextConfig;
