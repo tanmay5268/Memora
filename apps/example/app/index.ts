@@ -6,7 +6,12 @@ const vectorRedis = new Index({
 
 import { MemoraSdk } from "@workspace/memorasdk"
 const ai = new MemoraSdk({
-  MemoraKey: process.env.MemoraKey!,
-  openAIKey: process.env.Openapikey!,
+  topK: 2,
+  scoreThreshold:0.7,
+  openAIKey: process.env.OPEN_AI_KEY!,
+  VectorInstance: vectorRedis,
 })
-await ai.chat()
+console.log(await ai.chat({
+  prompt: "what is the capital of india?",
+  model: "gemini-3.5-flash",
+}))
