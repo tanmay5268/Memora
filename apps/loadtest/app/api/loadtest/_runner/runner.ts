@@ -1,5 +1,5 @@
 import { Index } from "@upstash/vector";
-import { MemoraSdk } from "@workspace/memorasdk/core/main";
+import { MemoraSdk } from "memorasdk";
 import { TEST_PROMPTS, type PromptKind } from "./prompts";
 
 export type RunStatus = "idle" | "running" | "completed" | "stopped";

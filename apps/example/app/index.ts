@@ -4,7 +4,7 @@ const vectorRedis = new Index({
   token: process.env.UPSTASH_VECTOR_REST_TOKEN,
 })
 
-import { MemoraSdk } from "@workspace/memorasdk"
+import { MemoraSdk } from "memorasdk"
 const ai = new MemoraSdk({
   topK: 2,
   scoreThreshold:0.7,

@@ -1,7 +1,7 @@
 import { Index } from "@upstash/vector";
 // Import the source entry directly: the package's `index.ts` re-exports
 // `./core/main.js`, which the bundler cannot resolve to the `.ts` source.
-import { MemoraSdk } from "@workspace/memorasdk";
+import { MemoraSdk } from "memorasdk";
 
 const MODEL = "gemini-3.5-flash";
 
