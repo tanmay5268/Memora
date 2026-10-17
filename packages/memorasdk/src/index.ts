@@ -1,1 +1,1 @@
-export * from './core/main.js'
+export * from './core/main'
