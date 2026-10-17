@@ -1,4 +1,4 @@
-import { MemoraSDKOptions } from "../types/coretypes";
+import { MemoraSDKOptions } from "../types/coretypes.js";
 export function assertNonEmptyString(
   value: unknown,
   name: keyof MemoraSDKOptions,

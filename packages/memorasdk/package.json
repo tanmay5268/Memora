@@ -1,21 +1,45 @@
 {
-  "name": "@workspace/memorasdk",
-  "version": "0.0.1",
-  "private": true,
+  "name": "memorasdk",
+  "version": "0.1.0",
+  "private": false,
   "type": "module",
-  "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch"
+  "license": "MIT",
+  "description": "A tiny SDK for memorized‑decay‑style similarity search over a vector index, with Gemini LLM fallback",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tanmay5268/Memora.git"
   },
+  "keywords": [
+    "vector",
+    "similarity",
+    "gemini",
+    "memory",
+    "llm cache"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts",
-    "./*": "./src/*.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
   "peerDependencies": {
     "@upstash/vector": "^1.2.3"
   },
   "devDependencies": {
-    "@workspace/typescript-config": "workspace:*",
-    "typescript": "latest"
+    "typescript": "^5.9.0"
+  },
+  "scripts": {
+    "build": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
   }
 }

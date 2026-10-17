@@ -1,6 +1,6 @@
-import { ChatRequest, MemoraSDKOptions, GeminiInteractionResponse } from "../types/coretypes";
+import { ChatRequest, MemoraSDKOptions, GeminiInteractionResponse } from "../types/coretypes.js";
 import type { Index } from "@upstash/vector";
-import { assertNonEmptyString, assertScoreThreshold } from "./utils";
+import { assertNonEmptyString, assertScoreThreshold } from "./utils.js";
 
 const DEFAULT_TOP_K = 10;
 const GEMINI_ENDPOINT = "https://generativelanguage.googleapis.com/v1beta/interactions";
