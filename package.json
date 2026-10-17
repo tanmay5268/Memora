@@ -5,6 +5,7 @@
   "scripts": {
     "web":"bun dev --filter web",
     "example":"bun dev --filter example",
+    "loadtest":"bun dev --filter loadtest",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
