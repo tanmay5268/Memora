@@ -8,7 +8,7 @@ export default async function Login(formdata: FormData) {
       callbackURL: "https://localhost:3000/dashboard",
     },
   })
-  console.log("RESPONSE FROM LOGIN:", respose)
+  
   return respose
   
 }
