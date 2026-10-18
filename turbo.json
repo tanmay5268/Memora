@@ -2,7 +2,9 @@
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
   "globalEnv": [
-    "AUTH_DB_URL"
+    "AUTH_DB_URL",
+    "VERCEL_REGION",
+    "VERCEL_URL"
   ],
   "tasks": {
     "build": {

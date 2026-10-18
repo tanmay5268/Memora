@@ -8,7 +8,9 @@
 @source "../**/*.{ts,tsx}";
 
 @theme inline {
-    --font-heading: var(--font-mono);
+    --font-heading: var(--font-heading);
+    --font-body: var(--font-body);
+    --font-mono: var(--font-mono);
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -40,94 +42,602 @@
     --color-card: var(--card);
     --color-foreground: var(--foreground);
     --color-background: var(--background);
-    --radius-sm: calc(var(--radius) * 0.6);
-    --radius-md: calc(var(--radius) * 0.8);
+    --radius-sm: calc(var(--radius) * 0.5);
+    --radius-md: calc(var(--radius) * 0.75);
     --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) * 1.4);
-    --radius-2xl: calc(var(--radius) * 1.8);
-    --radius-3xl: calc(var(--radius) * 2.2);
-    --radius-4xl: calc(var(--radius) * 2.6);
-    --font-mono: var(--font-mono);
-    --font-sans: var(--font-sans);
+    --radius-xl: calc(var(--radius) * 1.5);
+    --radius-2xl: calc(var(--radius) * 2);
+    --radius-3xl: calc(var(--radius) * 2.5);
+    --radius-4xl: calc(var(--radius) * 3);
+
+    /* Memora Custom Colors */
+    --color-surface-container-highest: var(--surface-container-highest);
+    --color-surface-container-high: var(--surface-container-high);
+    --color-surface-container: var(--surface-container);
+    --color-surface-container-low: var(--surface-container-low);
+    --color-surface-container-lowest: var(--surface-container-lowest);
+    --color-surface-dim: var(--surface-dim);
+    --color-surface-bright: var(--surface-bright);
+    --color-surface-tint: var(--surface-tint);
+    --color-on-surface: var(--on-surface);
+    --color-on-surface-variant: var(--on-surface-variant);
+    --color-on-background: var(--on-background);
+    --color-primary-container: var(--primary-container);
+    --color-secondary-container: var(--secondary-container);
+    --color-tertiary: var(--tertiary);
+    --color-tertiary-container: var(--tertiary-container);
+    --color-on-primary-container: var(--on-primary-container);
+    --color-on-secondary-container: var(--on-secondary-container);
+    --color-on-tertiary-container: var(--on-tertiary-container);
+    --color-on-primary: var(--on-primary);
+    --color-on-secondary: var(--on-secondary);
+    --color-on-tertiary: var(--on-tertiary);
+    --color-on-primary-fixed: var(--on-primary-fixed);
+    --color-on-primary-fixed-variant: var(--on-primary-fixed-variant);
+    --color-on-secondary-fixed: var(--on-secondary-fixed);
+    --color-on-secondary-fixed-variant: var(--on-secondary-fixed-variant);
+    --color-on-tertiary-fixed: var(--on-tertiary-fixed);
+    --color-on-tertiary-fixed-variant: var(--on-tertiary-fixed-variant);
+    --color-primary-fixed: var(--primary-fixed);
+    --color-primary-fixed-dim: var(--primary-fixed-dim);
+    --color-secondary-fixed: var(--secondary-fixed);
+    --color-secondary-fixed-dim: var(--secondary-fixed-dim);
+    --color-tertiary-fixed: var(--tertiary-fixed);
+    --color-tertiary-fixed-dim: var(--tertiary-fixed-dim);
+    --color-error: var(--error);
+    --color-error-container: var(--error-container);
+    --color-on-error: var(--on-error);
+    --color-on-error-container: var(--on-error-container);
+    --color-outline: var(--outline);
+    --color-outline-variant: var(--outline-variant);
+    --color-inverse-surface: var(--inverse-surface);
+    --color-inverse-on-surface: var(--inverse-on-surface);
+    --color-inverse-primary: var(--inverse-primary);
+    --color-shadow: var(--shadow);
+    --color-scrim: var(--scrim);
+    --color-surface-variant: var(--surface-variant);
+
+    /* Memora Spacing
+       These must live under the `--spacing-*` namespace to reach the
+       `p-` / `m-` / `gap-` / `space-y-` utilities. A bare `--space-*` key
+       feeds Tailwind's `space-between` axis instead, so `gap-space-md`
+       silently resolved to nothing. */
+    --spacing-space-xs: 0.25rem;
+    --spacing-space-sm: 0.5rem;
+    --spacing-space-md: 1rem;
+    --spacing-space-lg: 1.5rem;
+    --spacing-space-xl: 2.5rem;
+    --spacing-space-2xl: 4rem;
+    --spacing-gutter: 1.5rem;
+    --spacing-margin: 2rem;
+
+    /* Memora Border Radius */
+    --radius-default: 0.125rem;
+    --radius-lg: 0.25rem;
+    --radius-xl: 0.5rem;
+    --radius-full: 0.75rem;
+
+    /* Memora Type Scale
+       Emitting these as `--text-*` theme keys makes the `text-display`,
+       `text-headline-lg`, … utilities real. Without them those class names in
+       the markup silently resolved to nothing and only the paired
+       `.font-display` etc. rules (below) set the size. */
+    --text-display: 2.25rem;
+    --text-display--line-height: 2.75rem;
+    --text-display--font-weight: 600;
+    --text-display--letter-spacing: -0.03em;
+
+    --text-headline-lg: 1.75rem;
+    --text-headline-lg--line-height: 2.25rem;
+    --text-headline-lg--font-weight: 600;
+    --text-headline-lg--letter-spacing: -0.025em;
+
+    --text-headline-md: 1.25rem;
+    --text-headline-md--line-height: 1.75rem;
+    --text-headline-md--font-weight: 500;
+    --text-headline-md--letter-spacing: -0.02em;
+
+    --text-headline-sm: 1rem;
+    --text-headline-sm--line-height: 1.5rem;
+    --text-headline-sm--font-weight: 500;
+    --text-headline-sm--letter-spacing: -0.01em;
+
+    --text-body-lg: 1rem;
+    --text-body-lg--line-height: 1.625rem;
+    --text-body-lg--font-weight: 400;
+
+    --text-body-md: 0.875rem;
+    --text-body-md--line-height: 1.375rem;
+    --text-body-md--font-weight: 400;
+
+    --text-body-sm: 0.75rem;
+    --text-body-sm--line-height: 1.125rem;
+    --text-body-sm--font-weight: 400;
+
+    --text-label-md: 0.8125rem;
+    --text-label-md--line-height: 1.125rem;
+    --text-label-md--font-weight: 500;
+    --text-label-md--letter-spacing: 0.01em;
+
+    --text-label-sm: 0.6875rem;
+    --text-label-sm--line-height: 0.875rem;
+    --text-label-sm--font-weight: 600;
+    --text-label-sm--letter-spacing: 0.04em;
+
+    --text-code-md: 0.8125rem;
+    --text-code-md--line-height: 1.375rem;
+    --text-code-md--font-weight: 400;
+
+    --text-code-sm: 0.75rem;
+    --text-code-sm--line-height: 1.125rem;
+    --text-code-sm--font-weight: 400;
+
+    /* Memora Brand Glow
+       Declared as theme keys rather than plain classes so Tailwind can also
+       emit their `hover:` / `focus:` variants. */
+    --shadow-glow-primary: 0 0 12px rgba(255, 90, 0, 0.25);
+    --shadow-glow-primary-hover: 0 0 16px rgba(255, 90, 0, 0.4);
+    --shadow-glow-primary-lg: 0 0 20px rgba(255, 90, 0, 0.3);
+    --shadow-glow-primary-lg-hover: 0 0 26px rgba(255, 90, 0, 0.5);
+    --shadow-glow-primary-xl: 0 0 20px rgba(255, 90, 0, 0.35);
+    --shadow-glow-primary-xl-hover: 0 0 28px rgba(255, 90, 0, 0.5);
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.147 0.004 49.3);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.147 0.004 49.3);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.147 0.004 49.3);
-  --primary: oklch(0.214 0.009 43.1);
-  --primary-foreground: oklch(0.986 0.002 67.8);
-  --secondary: oklch(0.96 0.002 17.2);
-  --secondary-foreground: oklch(0.214 0.009 43.1);
-  --muted: oklch(0.96 0.002 17.2);
-  --muted-foreground: oklch(0.547 0.021 43.1);
-  --accent: oklch(0.96 0.002 17.2);
-  --accent-foreground: oklch(0.214 0.009 43.1);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0.005 34.3);
-  --input: oklch(0.922 0.005 34.3);
-  --ring: oklch(0.714 0.014 41.2);
-  --chart-1: oklch(0.879 0.169 91.605);
-  --chart-2: oklch(0.769 0.188 70.08);
-  --chart-3: oklch(0.666 0.179 58.318);
-  --chart-4: oklch(0.555 0.163 48.998);
-  --chart-5: oklch(0.473 0.137 46.201);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.986 0.002 67.8);
-  --sidebar-foreground: oklch(0.147 0.004 49.3);
-  --sidebar-primary: oklch(0.214 0.009 43.1);
-  --sidebar-primary-foreground: oklch(0.986 0.002 67.8);
-  --sidebar-accent: oklch(0.96 0.002 17.2);
-  --sidebar-accent-foreground: oklch(0.214 0.009 43.1);
-  --sidebar-border: oklch(0.922 0.005 34.3);
-  --sidebar-ring: oklch(0.714 0.014 41.2);
+  /* Memora Dark Theme (Default) */
+  --background: #131315;
+  --foreground: #e5e1e4;
+  --card: #131315;
+  --card-foreground: #e5e1e4;
+  --popover: #131315;
+  --popover-foreground: #e5e1e4;
+  --primary: #ffb59a;
+  --primary-foreground: #5b1b00;
+  --secondary: #ffb690;
+  --secondary-foreground: #552100;
+  --muted: #201f22;
+  --muted-foreground: #ab897e;
+  --accent: #201f22;
+  --accent-foreground: #e5e1e4;
+  --destructive: #ffb4ab;
+  --destructive-foreground: #690005;
+  --border: #353437;
+  --input: #353437;
+  --ring: #ffb59a;
+  --chart-1: #ffb59a;
+  --chart-2: #a0c9ff;
+  --chart-3: #ec6a06;
+  --chart-4: #802900;
+  --chart-5: #0095fc;
+  --radius: 0.125rem;
+  --sidebar: #131315;
+  --sidebar-foreground: #e5e1e4;
+  --sidebar-primary: #ffb59a;
+  --sidebar-primary-foreground: #5b1b00;
+  --sidebar-accent: #201f22;
+  --sidebar-accent-foreground: #e5e1e4;
+  --sidebar-border: #353437;
+  --sidebar-ring: #ffb59a;
+
+  /* Memora Custom Colors */
+  --surface-container-highest: #353437;
+  --surface-container-high: #2a2a2c;
+  --surface-container: #201f22;
+  --surface-container-low: #1c1b1d;
+  --surface-container-lowest: #0e0e10;
+  --surface-dim: #131315;
+  --surface-bright: #39393b;
+  --surface-tint: #ffb59a;
+  --on-surface: #e5e1e4;
+  --on-surface-variant: #e4beb1;
+  --on-background: #e5e1e4;
+  --primary-container: #ff5a00;
+  --secondary-container: #ec6a06;
+  --tertiary: #a0c9ff;
+  --tertiary-container: #0095fc;
+  --on-primary-container: #511700;
+  --on-secondary-container: #4a1c00;
+  --on-tertiary-container: #002c50;
+  --on-primary: #5b1b00;
+  --on-secondary: #552100;
+  --on-tertiary: #00325a;
+  --on-primary-fixed: #380d00;
+  --on-primary-fixed-variant: #802900;
+  --on-secondary-fixed: #341100;
+  --on-secondary-fixed-variant: #783200;
+  --on-tertiary-fixed: #001c37;
+  --on-tertiary-fixed-variant: #00497f;
+  --primary-fixed: #ffdbcf;
+  --primary-fixed-dim: #ffb59a;
+  --secondary-fixed: #ffdbca;
+  --secondary-fixed-dim: #ffb690;
+  --tertiary-fixed: #d2e4ff;
+  --tertiary-fixed-dim: #a0c9ff;
+  --error: #ffb4ab;
+  --error-container: #93000a;
+  --on-error: #690005;
+  --on-error-container: #ffdad6;
+  --outline: #ab897e;
+  --outline-variant: #5b4137;
+  --inverse-surface: #e5e1e4;
+  --inverse-on-surface: #313032;
+  --inverse-primary: #a83900;
+  --shadow: #000000;
+  --scrim: #000000;
+  --surface-variant: #353437;
+
+  /* Fonts */
+  --font-heading: "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-symbols: "Material Symbols Outlined", sans-serif;
 }
 
 .dark {
-  --background: oklch(0.147 0.004 49.3);
-  --foreground: oklch(0.986 0.002 67.8);
-  --card: oklch(0.214 0.009 43.1);
-  --card-foreground: oklch(0.986 0.002 67.8);
-  --popover: oklch(0.214 0.009 43.1);
-  --popover-foreground: oklch(0.986 0.002 67.8);
-  --primary: oklch(0.922 0.005 34.3);
-  --primary-foreground: oklch(0.214 0.009 43.1);
-  --secondary: oklch(0.268 0.011 36.5);
-  --secondary-foreground: oklch(0.986 0.002 67.8);
-  --muted: oklch(0.268 0.011 36.5);
-  --muted-foreground: oklch(0.714 0.014 41.2);
-  --accent: oklch(0.268 0.011 36.5);
-  --accent-foreground: oklch(0.986 0.002 67.8);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.547 0.021 43.1);
-  --chart-1: oklch(0.879 0.169 91.605);
-  --chart-2: oklch(0.769 0.188 70.08);
-  --chart-3: oklch(0.666 0.179 58.318);
-  --chart-4: oklch(0.555 0.163 48.998);
-  --chart-5: oklch(0.473 0.137 46.201);
-  --sidebar: oklch(0.214 0.009 43.1);
-  --sidebar-foreground: oklch(0.986 0.002 67.8);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.986 0.002 67.8);
-  --sidebar-accent: oklch(0.268 0.011 36.5);
-  --sidebar-accent-foreground: oklch(0.986 0.002 67.8);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.547 0.021 43.1);
+  /* Same as root since we default to dark */
+}
+
+.light {
+  --background: #fef7f4;
+  --foreground: #313032;
+  --card: #fef7f4;
+  --card-foreground: #313032;
+  --popover: #fef7f4;
+  --popover-foreground: #313032;
+  --primary: #a83900;
+  --primary-foreground: #fff1ee;
+  --secondary: #c65300;
+  --secondary-foreground: #fff1ee;
+  --muted: #f0e8e4;
+  --muted-foreground: #785d54;
+  --accent: #f0e8e4;
+  --accent-foreground: #313032;
+  --destructive: #b3261e;
+  --destructive-foreground: #fff1ee;
+  --border: #d8c5bd;
+  --input: #d8c5bd;
+  --ring: #a83900;
+  --chart-1: #a83900;
+  --chart-2: #006db0;
+  --chart-3: #c65300;
+  --chart-4: #802900;
+  --chart-5: #006db0;
+  --radius: 0.125rem;
+  --sidebar: #fef7f4;
+  --sidebar-foreground: #313032;
+  --sidebar-primary: #a83900;
+  --sidebar-primary-foreground: #fff1ee;
+  --sidebar-accent: #f0e8e4;
+  --sidebar-accent-foreground: #313032;
+  --sidebar-border: #d8c5bd;
+  --sidebar-ring: #a83900;
+
+  /* Memora Custom Colors (Light) */
+  --surface-container-highest: #d8c5bd;
+  --surface-container-high: #e4d1c9;
+  --surface-container: #e4d1c9;
+  --surface-container-low: #ebe3dd;
+  --surface-container-lowest: #fef7f4;
+  --surface-dim: #ebe3dd;
+  --surface-bright: #fef7f4;
+  --surface-tint: #a83900;
+  --on-surface: #313032;
+  --on-surface-variant: #785d54;
+  --on-background: #313032;
+  --primary-container: #ff5a00;
+  --secondary-container: #ec6a06;
+  --tertiary: #006db0;
+  --tertiary-container: #0095fc;
+  --on-primary-container: #fff1ee;
+  --on-secondary-container: #fff1ee;
+  --on-tertiary-container: #fff1ee;
+  --on-primary: #fff1ee;
+  --on-secondary: #fff1ee;
+  --on-tertiary: #fff1ee;
+  --on-primary-fixed: #fff1ee;
+  --on-primary-fixed-variant: #fff1ee;
+  --on-secondary-fixed: #fff1ee;
+  --on-secondary-fixed-variant: #fff1ee;
+  --on-tertiary-fixed: #fff1ee;
+  --on-tertiary-fixed-variant: #fff1ee;
+  --primary-fixed: #ffdbcf;
+  --primary-fixed-dim: #ffb59a;
+  --secondary-fixed: #ffdbca;
+  --secondary-fixed-dim: #ffb690;
+  --tertiary-fixed: #d2e4ff;
+  --tertiary-fixed-dim: #a0c9ff;
+  --error: #b3261e;
+  --error-container: #ffdad6;
+  --on-error: #fff1ee;
+  --on-error-container: #690005;
+  --outline: #a83900;
+  --outline-variant: #c65300;
+  --inverse-surface: #313032;
+  --inverse-on-surface: #fef7f4;
+  --inverse-primary: #ffb59a;
+  --shadow: #000000;
+  --scrim: #000000;
+  --surface-variant: #d8c5bd;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    }
+  }
   body {
     @apply bg-background text-foreground;
-    }
+    font-family: var(--font-body);
+    overscroll-behavior: none;
+  }
   html {
-    @apply font-mono;
-    }
+    font-family: var(--font-body);
+  }
+  main > :first-child {
+    margin-top: 0 !important;
+  }
+  main > :last-child {
+    margin-bottom: 0 !important;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-anim-1 { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.hero-anim-2 { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards; opacity: 0; }
+.hero-anim-3 { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; opacity: 0; }
+.hero-anim-4 { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; opacity: 0; }
+.hero-anim-5 { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; opacity: 0; }
+.hero-anim-6 { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; opacity: 0; }
+@keyframes travelingPulse {
+  0% { transform: translateX(-100%); opacity: 0; }
+  30% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: translateX(400%); opacity: 0; }
+}
+
+.pulse-beam {
+  animation: travelingPulse 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes flashBadge {
+  0%, 100% { opacity: 0; transform: translateY(-4px) scale(0.95); }
+  15%, 85% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.animate-flash-badge {
+  animation: flashBadge 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom Utility Classes
+   The `font-*` family classes carry family / weight / tracking only — size and
+   line-height come from the paired `text-*` scale (`--text-*` theme keys
+   above), matching Tailwind's own `font-bold text-sm` split. Keeping size out
+   of these rules is what lets `text-[11px]` overrides actually win. */
+.font-display {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.font-headline-lg {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.font-headline-md {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.font-headline-sm {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.font-body-lg {
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+.font-body-md {
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+.font-body-sm {
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+.font-label-md {
+  font-family: var(--font-body);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.font-label-sm {
+  font-family: var(--font-body);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.font-code-md {
+  font-family: var(--font-mono);
+  font-weight: 400;
+}
+
+.font-code-sm {
+  font-family: var(--font-mono);
+  font-weight: 400;
+}
+
+.text-surface-container-highest { color: var(--surface-container-highest); }
+.text-surface-container-high { color: var(--surface-container-high); }
+.text-surface-container { color: var(--surface-container); }
+.text-surface-container-low { color: var(--surface-container-low); }
+.text-surface-container-lowest { color: var(--surface-container-lowest); }
+.text-surface-dim { color: var(--surface-dim); }
+.text-surface-bright { color: var(--surface-bright); }
+.text-surface-tint { color: var(--surface-tint); }
+.text-on-surface { color: var(--on-surface); }
+.text-on-surface-variant { color: var(--on-surface-variant); }
+.text-on-background { color: var(--on-background); }
+.text-primary-container { color: var(--primary-container); }
+.text-secondary-container { color: var(--secondary-container); }
+.text-tertiary { color: var(--tertiary); }
+.text-tertiary-container { color: var(--tertiary-container); }
+.text-on-primary-container { color: var(--on-primary-container); }
+.text-on-secondary-container { color: var(--on-secondary-container); }
+.text-on-tertiary-container { color: var(--on-tertiary-container); }
+.text-on-primary { color: var(--on-primary); }
+.text-on-secondary { color: var(--on-secondary); }
+.text-on-tertiary { color: var(--on-tertiary); }
+.text-on-primary-fixed { color: var(--on-primary-fixed); }
+.text-on-primary-fixed-variant { color: var(--on-primary-fixed-variant); }
+.text-on-secondary-fixed { color: var(--on-secondary-fixed); }
+.text-on-secondary-fixed-variant { color: var(--on-secondary-fixed-variant); }
+.text-on-tertiary-fixed { color: var(--on-tertiary-fixed); }
+.text-on-tertiary-fixed-variant { color: var(--on-tertiary-fixed-variant); }
+.text-primary-fixed { color: var(--primary-fixed); }
+.text-primary-fixed-dim { color: var(--primary-fixed-dim); }
+.text-secondary-fixed { color: var(--secondary-fixed); }
+.text-secondary-fixed-dim { color: var(--secondary-fixed-dim); }
+.text-tertiary-fixed { color: var(--tertiary-fixed); }
+.text-tertiary-fixed-dim { color: var(--tertiary-fixed-dim); }
+.text-error { color: var(--error); }
+.text-error-container { color: var(--error-container); }
+.text-on-error { color: var(--on-error); }
+.text-on-error-container { color: var(--on-error-container); }
+.text-outline { color: var(--outline); }
+.text-outline-variant { color: var(--outline-variant); }
+.text-inverse-surface { color: var(--inverse-surface); }
+.text-inverse-on-surface { color: var(--inverse-on-surface); }
+.text-inverse-primary { color: var(--inverse-primary); }
+
+/* Material Symbols ligature font.
+   `--font-symbols` is injected on <html> by the app root layout via
+   next/font; the literal fallback keeps glyph names readable if it is absent. */
+.material-symbols-outlined {
+  font-family: var(--font-symbols);
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-size: 1.5rem;
+  font-feature-settings: "liga";
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+.bg-surface-container-highest { background-color: var(--surface-container-highest); }
+.bg-surface-container-high { background-color: var(--surface-container-high); }
+.bg-surface-container { background-color: var(--surface-container); }
+.bg-surface-container-low { background-color: var(--surface-container-low); }
+.bg-surface-container-lowest { background-color: var(--surface-container-lowest); }
+.bg-surface-dim { background-color: var(--surface-dim); }
+.bg-surface-bright { background-color: var(--surface-bright); }
+.bg-surface-tint { background-color: var(--surface-tint); }
+.bg-on-surface { background-color: var(--on-surface); }
+.bg-on-surface-variant { background-color: var(--on-surface-variant); }
+.bg-on-background { background-color: var(--on-background); }
+.bg-primary-container { background-color: var(--primary-container); }
+.bg-secondary-container { background-color: var(--secondary-container); }
+.bg-tertiary-container { background-color: var(--tertiary-container); }
+.bg-on-primary-container { background-color: var(--on-primary-container); }
+.bg-on-secondary-container { background-color: var(--on-secondary-container); }
+.bg-on-tertiary-container { background-color: var(--on-tertiary-container); }
+.bg-on-primary { background-color: var(--on-primary); }
+.bg-on-secondary { background-color: var(--on-secondary); }
+.bg-on-tertiary { background-color: var(--on-tertiary); }
+.bg-primary-fixed { background-color: var(--primary-fixed); }
+.bg-primary-fixed-dim { background-color: var(--primary-fixed-dim); }
+.bg-secondary-fixed { background-color: var(--secondary-fixed); }
+.bg-secondary-fixed-dim { background-color: var(--secondary-fixed-dim); }
+.bg-tertiary-fixed { background-color: var(--tertiary-fixed); }
+.bg-tertiary-fixed-dim { background-color: var(--tertiary-fixed-dim); }
+.bg-error { background-color: var(--error); }
+.bg-error-container { background-color: var(--error-container); }
+.bg-on-error { background-color: var(--on-error); }
+.bg-on-error-container { background-color: var(--on-error-container); }
+.bg-outline { background-color: var(--outline); }
+.bg-outline-variant { background-color: var(--outline-variant); }
+.bg-inverse-surface { background-color: var(--inverse-surface); }
+.bg-inverse-on-surface { background-color: var(--inverse-on-surface); }
+.bg-inverse-primary { background-color: var(--inverse-primary); }
+.bg-surface-variant { background-color: var(--surface-variant); }
+
+.border-surface-container-highest { border-color: var(--surface-container-highest); }
+.border-surface-container-high { border-color: var(--surface-container-high); }
+.border-surface-container { border-color: var(--surface-container); }
+.border-surface-container-low { border-color: var(--surface-container-low); }
+.border-surface-container-lowest { border-color: var(--surface-container-lowest); }
+.border-primary-container { border-color: var(--primary-container); }
+.border-secondary-container { border-color: var(--secondary-container); }
+.border-tertiary-container { border-color: var(--tertiary-container); }
+.border-outline { border-color: var(--outline); }
+.border-outline-variant { border-color: var(--outline-variant); }
+
+.rounded-default { border-radius: var(--radius-default); }
+.rounded-lg-custom { border-radius: var(--radius-lg); }
+.rounded-xl-custom { border-radius: var(--radius-xl); }
+.rounded-full-custom { border-radius: var(--radius-full); }
+
+/* Transition helpers */
+.transition-all-150 {
+  transition: all 150ms ease;
+}
+.transition-all-200 {
+  transition: all 200ms ease;
+}
+.transition-colors-150 {
+  transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
+}
+.transition-transform-150 {
+  transition: transform 150ms ease;
+}
+.transition-transform-200 {
+  transition: transform 200ms ease;
+}
+.transition-transform-300 {
+  transition: transform 300ms ease;
+}
+.transition-width-200 {
+  transition: width 200ms ease;
+}
+.transition-width-700 {
+  transition: width 700ms ease-out;
+}
+.transition-opacity-200 {
+  transition: opacity 200ms ease;
 }

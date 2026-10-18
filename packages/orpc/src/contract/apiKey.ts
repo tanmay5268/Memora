@@ -1,6 +1,5 @@
 import { baseProcedure } from '../middleware/auth.js'
 import * as z from 'zod'
-import { ORPCError } from '@orpc/server'
 export const apiKeyErrors = {
 	UNAUTHORIZED: { message: 'Authentication required' },
 	NOT_FOUND: { message: 'API key not found' },
