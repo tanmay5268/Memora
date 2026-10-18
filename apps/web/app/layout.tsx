@@ -1,14 +1,33 @@
-import { Geist, Geist_Mono, JetBrains_Mono, Inter, Outfit, Raleway } from "next/font/google"
+import { Inter, JetBrains_Mono } from "next/font/google"
+import localFont from "next/font/local"
 import { Toaster } from "@workspace/ui/components/toast"
 import "@workspace/ui/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@workspace/ui/lib/utils";
+import { cn } from "@workspace/ui/lib/utils"
 
-const ralewayHeading = Raleway({subsets:['latin'],variable:'--font-heading'});
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+})
 
-const outfit = Outfit({subsets:['latin'],variable:'--font-sans'})
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  display: "swap",
+})
 
-const jetbrainsMono = JetBrains_Mono({subsets:['latin'],variable:'--font-mono'})
+// Subsetted to the ligatures used by <Icon /> — see app/fonts/README.md.
+// `display: "block"` avoids a flash of raw ligature text ("arrow_forward")
+// while the 3 kB file loads.
+const materialSymbols = localFont({
+  src: "./fonts/MaterialSymbolsOutlined.woff2",
+  weight: "400",
+  style: "normal",
+  display: "block",
+  variable: "--font-symbols",
+  fallback: [],
+})
 
 export default function RootLayout({
   children,
@@ -19,11 +38,16 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("antialiased", outfit.variable, ralewayHeading.variable, "font-mono", jetbrainsMono.variable)}
+      className={cn(
+        "dark antialiased",
+        inter.variable,
+        jetbrainsMono.variable,
+        materialSymbols.variable,
+      )}
     >
-      <body className="">
+      <body className="min-h-screen flex flex-col bg-surface font-body-md text-body-md text-on-surface selection:bg-primary-container selection:text-white">
         <ThemeProvider>{children}</ThemeProvider>
-        <Toaster /> 
+        <Toaster />
       </body>
     </html>
   )

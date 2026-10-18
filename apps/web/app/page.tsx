@@ -1,15 +1,27 @@
-"use client"
+import { Architecture } from "./components/Architecture"
+import { Benchmarks } from "./components/Benchmarks"
+import { CodeDemo } from "./components/CodeDemo"
+import { FinalCTA } from "./components/FinalCTA"
+import { Footer } from "./components/Footer"
+import { Header } from "./components/Header"
+import { Hero } from "./components/Hero"
+import { Personas } from "./components/Personas"
+import { Pillars } from "./components/Pillars"
 
-import { Button } from "@workspace/ui/components/button"
-import Link from "next/link"
-export default function ToastTypes() {
+export default function Home() {
   return (
-    <div className="flex flex-wrap gap-2">
-      <Link href="/login">
-        <Button size={"sm"}>
-          Login
-        </Button>
-      </Link>
-    </div>
+    <>
+      <Header />
+      <main className="w-full pt-16 bg-surface flex-1">
+        <Hero />
+        <Benchmarks />
+        <CodeDemo />
+        <Pillars />
+        <Architecture />
+        <Personas />
+        <FinalCTA />
+      </main>
+      <Footer />
+    </>
   )
 }

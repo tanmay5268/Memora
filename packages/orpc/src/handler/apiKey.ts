@@ -29,4 +29,4 @@ export const revokeApiKeyHandler = revokeApiKey
 			throw new ORPCError('NOT_FOUND')
 		}
 		return { success: true }
-	})
+  })
