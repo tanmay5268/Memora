@@ -1,4 +1,4 @@
-import { baseProcedure } from '../middleware/auth.js'
+import { baseProcedure, apiKeyProcedure } from '../middleware/auth.js'
 import * as z from 'zod'
 export const apiKeyErrors = {
 	UNAUTHORIZED: { message: 'Authentication required' },
@@ -49,3 +49,14 @@ export const revokeApiKey = baseProcedure
 	.errors({ ...apiKeyErrors, NOT_FOUND: apiKeyErrors.NOT_FOUND, FORBIDDEN: apiKeyErrors.FORBIDDEN })
 	.input(revokeApiKeyInput)
 	.output(revokeApiKeyOutput)
+
+export const verifyApiKeyOutput = z.object({
+	valid: z.literal(true),
+	userId: z.string(),
+	keyPrefix: z.string(),
+	name: z.string(),
+})
+
+export const verifyApiKey = apiKeyProcedure
+	.errors(apiKeyErrors)
+	.output(verifyApiKeyOutput)

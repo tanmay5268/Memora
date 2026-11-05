@@ -13,7 +13,9 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
-  // trustedOrigins: process.env.NODE_ENV === "production" ? [process.env.NEXT_PUBLIC_URL].filter((url): url is string => Boolean(url)) : ["http://localhost:3000"],
+  trustedOrigins: process.env.NODE_ENV === "production"
+    ? [process.env.NEXT_PUBLIC_URL].filter((url): url is string => Boolean(url))
+    : ["http://localhost:3000"],
   socialProviders: {
     github: {
       clientId: process.env.GITHUB_CLIENT_ID!,

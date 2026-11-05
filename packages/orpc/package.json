@@ -9,6 +9,10 @@
     "./client": {
       "types": "./dist/client/orpcClient.d.ts",
       "default": "./dist/client/orpcClient.js"
+    },
+    "./security": {
+      "types": "./dist/security/rate-limit.d.ts",
+      "default": "./dist/security/rate-limit.js"
     }
   },
   "scripts": {

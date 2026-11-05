@@ -6,3 +6,4 @@ export { baseProcedure, authMiddleware } from './middleware/auth.js'
 export * from './contract/apiKey.js'
 export * from './contract/health.js'
 export {orpc,safe} from "./client/orpcClient.js"
+export { rateLimit } from "./security/rate-limit.js"

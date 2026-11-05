@@ -21,10 +21,10 @@ const INSTALL_SNIPPET = `import { MemoraSdk } from "memorasdk";
 import { Index } from "@upstash/vector";
 
 const memora = new MemoraSdk({
-  openAIKey: process.env.GEMINI_API_KEY!,
+  openAIKey: "<your-gemini-api-key>",        // set this in your environment
   VectorInstance: new Index({
-    url: process.env.UPSTASH_REDIS_REST_URL!,
-    token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+    url: "<your-upstash-vector-url>",
+    token: "<your-upstash-vector-token>",
   }),
   scoreThreshold: 0.88,
 });`

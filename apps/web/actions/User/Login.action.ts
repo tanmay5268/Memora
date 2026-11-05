@@ -5,7 +5,7 @@ export default async function Login(formdata: FormData) {
     body: {
       email: formdata.get("email") as string,
       password: formdata.get("password") as string,
-      callbackURL: "https://localhost:3000/dashboard",
+      callbackURL: "/dashboard",
     },
   })
   

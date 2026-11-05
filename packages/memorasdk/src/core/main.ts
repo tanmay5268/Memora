@@ -9,6 +9,15 @@ const MAX_RETRIES = 3;
 /** Base delay for exponential backoff; multiplied by 2^attempt. */
 const RETRY_BASE_MS = 1000;
 
+/**
+ * In-flight deduplication: concurrent `chat()` calls for the same prompt share
+ * a single Gemini round-trip instead of each triggering one (cache stampede).
+ * The map is garbage-collected naturally because completed promises are removed
+ * in a `finally` block.
+ */
+type ChatResult = Awaited<ReturnType<Index["query"]>> | string
+const inflight = new Map<string, Promise<ChatResult>>();
+
 export class MemoraSdk {
   private readonly topK: number;
 
@@ -25,6 +34,19 @@ export class MemoraSdk {
   async chat({ prompt, model }: ChatRequest): Promise<
     Awaited<ReturnType<Index["query"]>> | string
   > {
+    const inFlight = inflight.get(prompt)
+    if (inFlight) return inFlight
+
+    const promise = this.runChat({ prompt, model })
+    inflight.set(prompt, promise)
+    try {
+      return await promise
+    } finally {
+      inflight.delete(prompt)
+    }
+  }
+
+  private async runChat({ prompt, model }: ChatRequest): Promise<Awaited<ReturnType<Index["query"]>> | string> {
     const lookup = await this.options.VectorInstance.query({
       data: `${prompt}`,
       topK: this.topK,

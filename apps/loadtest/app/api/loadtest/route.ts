@@ -48,8 +48,9 @@ export async function POST(request: Request) {
         );
     }
   } catch (error) {
+    console.error("[loadtest] request failed:", error);
     return Response.json(
-      { error: error instanceof Error ? error.message : "Request failed" },
+      { error: "Request failed. Check the server logs for details." },
       { status: 400 },
     );
   }
