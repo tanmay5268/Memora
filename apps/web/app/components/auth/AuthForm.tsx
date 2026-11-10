@@ -437,7 +437,7 @@ const [digest, setDigest] = useState<{
         {/* Status console — full-bleed foot of the auth unit */}
         <div
           aria-live="polite"
-          className="border-t border-surface-container-highest bg-surface-container-lowest px-space-md py-space-sm flex items-center gap-space-sm"
+          className="border-t border-surface-container-highest bg-surface-container-lowest px-space-md py-space-sm flex items-center justify-center gap-space-sm"
         >
           <span
             aria-hidden
@@ -458,12 +458,12 @@ const [digest, setDigest] = useState<{
           >
             {consoleText}
           </span>
-          <span
+          {/*<span
             aria-hidden
             className="font-code-sm text-code-sm text-tertiary animate-pulse shrink-0"
           >
             ▍
-          </span>
+          </span>*/}
         </div>
       </div>
 

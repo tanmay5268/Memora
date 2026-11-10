@@ -460,9 +460,9 @@ export function ApiKeys({ initialKeys }: { initialKeys: SerializedApiKey[] }) {
               <th className="py-2.5 px-space-md font-medium" scope="col">
                 Created
               </th>
-              <th className="py-2.5 px-space-md font-medium" scope="col">
+              {/*<th className="py-2.5 px-space-md font-medium" scope="col">
                 Last used
-              </th>
+              </th>*/}
               <th className="py-2.5 px-space-md font-medium" scope="col">
                 Status
               </th>
@@ -557,9 +557,9 @@ export function ApiKeys({ initialKeys }: { initialKeys: SerializedApiKey[] }) {
                   <td className="py-3 px-space-md font-code-sm text-code-sm text-outline whitespace-nowrap">
                     {formatDate(key.createdAt)}
                   </td>
-                  <td className="py-3 px-space-md font-code-sm text-code-sm text-on-surface whitespace-nowrap">
+                  {/*<td className="py-3 px-space-md font-code-sm text-code-sm text-on-surface whitespace-nowrap">
                     {formatRelative(key.lastUsedAt)}
-                  </td>
+                  </td>*/}
                   <td className="py-3 px-space-md">
                     <span className="flex items-center gap-1.5">
                       <span
